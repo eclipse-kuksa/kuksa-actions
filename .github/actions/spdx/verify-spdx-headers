@@ -60,6 +60,8 @@ class Index:
         '.hpp': 'c++',
         '.cc': 'c++',
         '.hh': 'c++',
+        '.kt': 'c++',
+        '.java': 'c++',
     }
 
     def __init__(self):
