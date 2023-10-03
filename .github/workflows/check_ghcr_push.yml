@@ -1,0 +1,38 @@
+on:
+  workflow_call:
+    outputs:
+      push:
+        description: "Push criteria fulfilled and likely in possession of ghcr.io tokens?"
+        value: ${{ jobs.check_ghcr_push.outputs.push }}
+
+# No concurrency group or cancel-in-progress here as this workflow is called from other workflows
+# so if you have a concurrency definition here it will be considered as a deadlock and job dismissed
+# The job below is also very fast, so no real need for cancel-in-progress
+
+jobs:
+  check_ghcr_push:
+    runs-on: ubuntu-latest
+
+    outputs:
+      push: ${{ steps.check-conditions.outputs.push }}
+
+    steps:
+    #Check if this is a push or tag for "root" repo, then we have access to secrets for pushing to GHCR. Forks do not
+    - name: Check conditions for upload
+      id: check-conditions
+      run: |
+          if [[ ("${{ github.event_name }}" == "push") || \
+                ("${{ github.ref_type }}" == "tag") ]] ; then
+            if [[ ("${{ github.repository }}" == "eclipse/kuksa.val") || \
+                  ("${{ github.repository }}" == "eclipse/kuksa.val.feeders") || \
+                  ("${{ github.repository_owner }}" == "eclipse-kuksa") ]] ; then
+              echo "We are pushing or tagging an official KUKSA repo, so pushing makes sense and we should have rights"
+              echo "push=true" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+          fi
+          echo "Images shall only be uploaded for push/tag for official KUKSA repos"
+          echo "We are event ${{ github.event_name }} running in ${{ github.repository }}"
+          echo "In case this is a PR it is coming from ${{ github.event.pull_request.head.repo.full_name }} "
+          echo "push=false" >> $GITHUB_OUTPUT
+      shell: bash
