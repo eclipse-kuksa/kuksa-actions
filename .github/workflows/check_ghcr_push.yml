@@ -25,6 +25,7 @@ jobs:
                 ("${{ github.ref_type }}" == "tag") ]] ; then
             if [[ ("${{ github.repository }}" == "eclipse/kuksa.val") || \
                   ("${{ github.repository }}" == "eclipse/kuksa.val.feeders") || \
+                  ("${{ github.repository }}" == "eclipse/kuksa.val.services") || \
                   ("${{ github.repository_owner }}" == "eclipse-kuksa") ]] ; then
               echo "We are pushing or tagging an official KUKSA repo, so pushing makes sense and we should have rights"
               echo "push=true" >> $GITHUB_OUTPUT
