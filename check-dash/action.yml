@@ -23,11 +23,15 @@ runs:
         echo -e "Dash output: \n\`\`\` " >> $GITHUB_STEP_SUMMARY
         cat ${{ inputs.dashinput }}.out >> $GITHUB_STEP_SUMMARY
         echo -e "\n\`\`\`"
+        DASH_NAME_FULL=${{ inputs.dashinput }}
+        echo "DASH_NAME=${DASH_NAME_FULL##*/}" >> $GITHUB_ENV
     
     - name: "Archive dash artifacts"
       uses: actions/upload-artifact@v4
       with:
-        name: "Dash data"
+        # Name shall be unique to avoid conflicts if action is called multiple times
+        # from the same workflow
+        name: Dash Report - ${{env.DASH_NAME}}
         path: |
          ${{ inputs.dashinput }}
          ${{ inputs.dashinput }}.report
