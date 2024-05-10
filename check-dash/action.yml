@@ -5,8 +5,14 @@ description: Check an input file via dash, and archive report. Print output in b
 inputs:
   dashinput:
     required: true
-    type: string
     description: "Dash Input file"
+  dashproject:
+    required: false
+    description: "Dash project, only required when creating tickets in Eclipse IP review system."
+    default: "automotive.kuksa"
+  dashtoken:
+    required: false
+    description: "Token for dash. If given, this action will create tickets in Eclipse IP rewiew system if required."
 
 
 runs:
@@ -20,7 +26,15 @@ runs:
       shell: bash
       run: |
         wget -O dash.jar "https://repo.eclipse.org/service/local/artifact/maven/redirect?r=dash-licenses&g=org.eclipse.dash&a=org.eclipse.dash.licenses&v=LATEST"
-        java -jar dash.jar -summary ${{ inputs.dashinput }}.report  ${{ inputs.dashinput }} > ${{ inputs.dashinput }}.out 2>&1 || true
+        
+        if [[ -n "${{ inputs.dashtoken }}" ]]; then
+            echo -e "Dash token available. Will create tickets when required. \n " >> $GITHUB_STEP_SUMMARY
+            java -jar dash.jar -summary ${{ inputs.dashinput }}.report -project automotive.kuksa -token ${{ inputs.dashtoken }} -review  ${{ inputs.dashinput }} > ${{ inputs.dashinput }}.out 2>&1 || true
+        else
+            echo -e "Dash token not available. Will perform checking only. \n " >> $GITHUB_STEP_SUMMARY
+            java -jar dash.jar -summary ${{ inputs.dashinput }}.report  ${{ inputs.dashinput }} > ${{ inputs.dashinput }}.out 2>&1 || true
+        fi
+
         echo -e "Dash output: \n\`\`\` " >> $GITHUB_STEP_SUMMARY
         cat ${{ inputs.dashinput }}.out >> $GITHUB_STEP_SUMMARY
         echo -e "\n\`\`\`"
