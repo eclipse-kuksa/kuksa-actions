@@ -12,9 +12,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Installing JVM, needed for Dash
-      shell: bash
-      run: sudo apt update && sudo apt-get install -y default-jre
+    - uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
     - name: "Run Dash"
       shell: bash
       run: |
