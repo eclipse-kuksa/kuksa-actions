@@ -9,7 +9,7 @@ You need an input file that Dash can understand, then give it as input like belo
 
 ```yaml
       - name: Dash license check
-        uses: eclipse-kuksa/kuksa-actions/check-dash@2
+        uses: eclipse-kuksa/kuksa-actions/check-dash@4
         with:
           dashinput: ${{github.workspace}}/dash-databroker-deps
 ```

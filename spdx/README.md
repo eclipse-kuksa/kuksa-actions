@@ -10,7 +10,7 @@ that files modified in a Pull Request has an SPDX license identifier.
 
 It shall be possible to use this action from other repositories by referencing:
 
-`- uses: eclipse-kuksa/kuksa-actions/spdx@2`
+`- uses: eclipse-kuksa/kuksa-actions/spdx@4`
 
 If you accept multiple licenses it can be specified like:
 

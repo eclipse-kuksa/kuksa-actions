@@ -28,7 +28,7 @@ Alternatively tags can be used to specify exactly which version of this workflow
 ```
 jobs:
   check_ghcr_push:
-    uses: eclipse-kuksa/kuksa-actions/.github/workflows/check_ghcr_push.yml@main
+    uses: eclipse-kuksa/kuksa-actions/.github/workflows/check_ghcr_push.yml@4
     secrets: inherit
     
   build-something:
