@@ -10,6 +10,8 @@ runs:
     - name: Install and run npm
       shell: bash
       run: |
-        npm install -g markdown-link-check
+        # Errors when using 3.13.*
+        # See also https://github.com/tcort/markdown-link-check/issues/369
+        npm install -g markdown-link-check@3.12.2
         markdown-link-check --version
         find . -name \*.md  -print0  | xargs -0 -n1 markdown-link-check -c $GITHUB_ACTION_PATH/config.json -a 403,200
