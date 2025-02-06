@@ -5,6 +5,9 @@
       },
       {
         "pattern": "%"
+      },
+      {
+        "pattern": "^http://localhost"
       }
     ]
 }
