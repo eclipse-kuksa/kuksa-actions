@@ -9,5 +9,6 @@
       {
         "pattern": "^http://localhost"
       }
-    ]
+    ],
+    "aliveStatusCodes": [200, 403, 429]
 }
