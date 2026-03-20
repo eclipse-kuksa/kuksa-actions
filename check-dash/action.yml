@@ -40,7 +40,7 @@ runs:
         echo -e "\n\`\`\`"
         DASH_NAME_FULL=${{ inputs.dashinput }}
         echo "DASH_NAME=${DASH_NAME_FULL##*/}" >> $GITHUB_ENV
-    
+
     - name: "Archive dash artifacts"
       uses: actions/upload-artifact@v4
       with:
