@@ -30,9 +30,9 @@ jobs:
   check_ghcr_push:
     uses: eclipse-kuksa/kuksa-actions/.github/workflows/check_ghcr_push.yml@4
     secrets: inherit
-    
+
   build-something:
-  
+
     name: "Build something"
     runs-on: self-hosted
     needs: check_ghcr_push

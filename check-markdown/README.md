@@ -17,5 +17,3 @@ An example on how to use this action to check all `*.md` files in a repository i
       - uses: eclipse-kuksa/kuksa-actions/check-markdown@4
 
 ```
-
-
