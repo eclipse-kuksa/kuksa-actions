@@ -26,7 +26,7 @@ runs:
       shell: bash
       run: |
         wget -O dash.jar "https://repo.eclipse.org/service/rest/v1/search/assets/download?sort=version&repository=dash-maven2-releases&maven.groupId=org.eclipse.dash&maven.artifactId=org.eclipse.dash.licenses&maven.extension=jar"
-        
+
         if [[ -n "${{ inputs.dashtoken }}" ]]; then
             echo -e "Dash token available. Will create tickets when required. \n " >> $GITHUB_STEP_SUMMARY
             java -jar dash.jar -summary ${{ inputs.dashinput }}.report -project automotive.kuksa -token ${{ inputs.dashtoken }} -review  ${{ inputs.dashinput }} > ${{ inputs.dashinput }}.out 2>&1 || true
