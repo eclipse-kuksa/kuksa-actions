@@ -5,7 +5,7 @@ description: Check if links in markdown files are functional
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Install and run npm
       shell: bash

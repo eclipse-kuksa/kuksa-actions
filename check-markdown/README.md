@@ -13,7 +13,7 @@ An example on how to use this action to check all `*.md` files in a repository i
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: eclipse-kuksa/kuksa-actions/check-markdown@4
 
 ```
