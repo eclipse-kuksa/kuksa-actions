@@ -18,7 +18,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-java@v4
+    - uses: actions/setup-java@v5
       with:
         distribution: 'temurin'
         java-version: '21'
@@ -42,7 +42,7 @@ runs:
         echo "DASH_NAME=${DASH_NAME_FULL##*/}" >> $GITHUB_ENV
 
     - name: "Archive dash artifacts"
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         # Name shall be unique to avoid conflicts if action is called multiple times
         # from the same workflow
