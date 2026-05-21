@@ -62,6 +62,7 @@ class Index:
         '.hh': 'c++',
         '.kt': 'c++',
         '.java': 'c++',
+        '.dart': 'c++',
         '.go': 'golang',
     }
 
