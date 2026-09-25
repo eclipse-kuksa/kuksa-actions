@@ -2,6 +2,12 @@
 name: Checking Markdown
 description: Check if links in markdown files are functional
 
+inputs:
+  exclude_paths:
+    description: 'Paths to exclude from check (space-separated, e.g. "./yoriito-viss/* ./vendor/*")'
+    required: false
+    default: ''
+
 runs:
   using: "composite"
   steps:
@@ -14,4 +20,12 @@ runs:
         # See also https://github.com/tcort/markdown-link-check/issues/369
         npm install -g markdown-link-check@3.12.2
         markdown-link-check --version
-        find . -name \*.md  -print0  | xargs -0 -n1 markdown-link-check -c $GITHUB_ACTION_PATH/config.json
+
+        EXCLUDE_ARGS=""
+        if [ -n "${{ inputs.exclude_paths }}" ]; then
+          for path in ${{ inputs.exclude_paths }}; do
+            EXCLUDE_ARGS="$EXCLUDE_ARGS -not -path '$path'"
+          done
+        fi
+
+        eval "find . -name \*.md $EXCLUDE_ARGS -print0" | xargs -0 -n1 markdown-link-check -c $GITHUB_ACTION_PATH/config.json
